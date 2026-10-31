@@ -173,6 +173,10 @@ ruby rt { font-size: .5em; }
 
 .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
 
+@media (max-width: 30rem) {
+  .pass-head, .pass-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .actions a { flex: 1 1 100%; text-align: center; }
+}
 
 /* 作者ごとの画像（tools/config.json の author_images） */
 .work-image { margin: 0 0 1.5rem; }
@@ -185,7 +189,5 @@ ruby rt { font-size: .5em; }
   background: #fff;
 }
 
-@media (max-width: 30rem) {
-  .pass-head, .pass-body { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .actions a { flex: 1 1 100%; text-align: center; }
-}
+/* カテゴリ（書き出しの後ろ） */
+.category { margin: 1.75rem 0 0; color: var(--sub); font-size: .9rem; }

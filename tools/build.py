@@ -82,6 +82,11 @@ def links_html(w):
     return f'<ul class="links">{"".join(items)}</ul>' if items else ""
 
 
+def category_html(w):
+    cat = (w.get("カテゴリ") or "").strip()
+    return f'<p class="category">カテゴリ：{html.escape(cat)}</p>' if cat else ""
+
+
 def file_version(path):
     return hashlib.sha1(path.read_bytes()).hexdigest()[:8]
 
@@ -189,6 +194,7 @@ def build_result(key, w):
       <h2 class="opening-label">{"作品紹介" if is_summary else "書き出し"}</h2>
       {figure}
       <div class="opening">{paras}</div>
+      {category_html(w)}
       {links_html(w)}
     </div>
   </article>
@@ -321,6 +327,8 @@ def build_default_image():
     big = ImageFont.truetype(F_MINCHO_B, 64)
     small = ImageFont.truetype(F_GOTHIC, 28)
     d.text((96, 220), SITE_TITLE, font=big, fill=INK)
+    d.text((96, 330), "仮のサムネイル画像です（og/default.png を差し替えてください）", font=small, fill=SUB)
+    d.text((96, 380), "推奨サイズ 1200 × 630 px", font=small, fill=SUB)
     im.save(path, optimize=True)
 
 
