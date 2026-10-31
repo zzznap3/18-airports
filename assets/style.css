@@ -171,11 +171,13 @@ ruby rt { font-size: .5em; }
 .links li + li { margin-top: .3rem; }
 .links a { overflow-wrap: anywhere; }
 
-.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 2rem; }
+.actions a { text-align: center; }
+.actions .catalog { grid-column: 1 / -1; }
 
 @media (max-width: 30rem) {
   .pass-head, .pass-body { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .actions a { flex: 1 1 100%; text-align: center; }
+  .actions { grid-template-columns: 1fr; }
 }
 
 /* 作者ごとの画像（tools/config.json の author_images） */

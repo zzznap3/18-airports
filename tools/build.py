@@ -87,6 +87,13 @@ def category_html(w):
     return f'<p class="category">カテゴリ：{html.escape(cat)}</p>' if cat else ""
 
 
+def catalog_html():
+    url = (CONFIG.get("catalog_url") or "").strip()
+    if not url:
+        return ""
+    return f'<a class="secondary catalog" href="{html.escape(url)}" target="_blank" rel="noopener">四点灯台ブースのWebカタログへ</a>'
+
+
 def file_version(path):
     return hashlib.sha1(path.read_bytes()).hexdigest()[:8]
 
@@ -201,6 +208,7 @@ def build_result(key, w):
   <div class="actions">
     <a class="primary" href="{html.escape(share)}" target="_blank" rel="noopener">Xで結果を共有する</a>
     <a class="secondary" href="../">もう一度診断する</a>
+    {catalog_html()}
   </div>
 </main>
 </body>
@@ -327,8 +335,6 @@ def build_default_image():
     big = ImageFont.truetype(F_MINCHO_B, 64)
     small = ImageFont.truetype(F_GOTHIC, 28)
     d.text((96, 220), SITE_TITLE, font=big, fill=INK)
-    d.text((96, 330), "仮のサムネイル画像です（og/default.png を差し替えてください）", font=small, fill=SUB)
-    d.text((96, 380), "推奨サイズ 1200 × 630 px", font=small, fill=SUB)
     im.save(path, optimize=True)
 
 
