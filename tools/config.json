@@ -4,5 +4,13 @@
   "description": "5つの質問に答えると、『18人の空港』収録作からあなたにおすすめの一篇をご案内します。",
   "lead": "5つの質問に答えると、『18人の空港』の18篇から、あなたにおすすめの一篇をご案内します。",
   "share_text": "わたしへのおすすめは『{title}』（{author}）でした",
-  "hashtags": ["18人の空港"]
+  "hashtags": [
+    "18人の空港"
+  ],
+  "author_images": {
+    "伊藤有沙": "images/arisaIto.png"
+  },
+  "author_og_images": {
+    "伊藤有沙": "images/arisaIto_thumbnail.png"
+  }
 }

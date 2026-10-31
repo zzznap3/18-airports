@@ -164,6 +164,14 @@ def build_result(key, w):
         quote_via=urllib.parse.quote,
     )
     paras = "".join(f"<p>{ruby_html(p)}</p>" for p in opening.split("\n"))
+    figure = ""
+    img_path = CONFIG.get("author_images", {}).get(author)
+    if img_path:
+        with Image.open(ROOT / img_path) as im:
+            iw, ih = im.size
+        alt = f"{author}『{title}』より"
+        figure = (f'<figure class="work-image"><img src="../{html.escape(img_path)}" '
+                  f'width="{iw}" height="{ih}" alt="{html.escape(alt)}" loading="lazy"></figure>')
     page_title = f"『{title}』{author}｜{SITE_TITLE}"
 
     page = f"""{head(page_title, desc, url, image, "../")}
@@ -179,6 +187,7 @@ def build_result(key, w):
     <div class="pass-tear" aria-hidden="true"></div>
     <div class="pass-body{' is-summary' if is_summary else ''}">
       <h2 class="opening-label">{"作品紹介" if is_summary else "書き出し"}</h2>
+      {figure}
       <div class="opening">{paras}</div>
       {links_html(w)}
     </div>
@@ -265,17 +274,38 @@ def build_result_image(key, w):
     num = key.replace("作品", "")
     im, d = base_canvas()
     pad = 96
-    draw_opening(d, opening_of(w), (pad, 92, W - pad * 2), 38, 5)
+    og_img = CONFIG.get("author_og_images", {}).get(w["作者"])
+    if og_img:
+        # 指定画像を上部の枠（1008×430）に収まるよう縮小・拡大して中央に置く
+        src = Image.open(ROOT / og_img).convert("RGBA")
+        flat = Image.new("RGB", src.size, "#FFFFFF")
+        flat.paste(src, mask=src.split()[3])
+        box_w, box_h, top = W - pad * 2, 430, 40
+        scale = min(box_w / flat.width, box_h / flat.height)
+        size = (round(flat.width * scale), round(flat.height * scale))
+        flat = flat.resize(size, Image.LANCZOS)
+        x, y = (W - size[0]) // 2, top + (box_h - size[1]) // 2
+        im.paste(flat, (x, y))
+        d.rectangle([x - 1, y - 1, x + size[0], y + size[1]], outline=LINE, width=1)
+    else:
+        draw_opening(d, opening_of(w), (pad, 92, W - pad * 2), 38, 5)
     # 下部：作品名と作者、サイト名
     d.line([pad, 500, W - pad, 500], fill=LINE, width=2)
-    tf = ImageFont.truetype(F_MINCHO_B, 30)
     af = ImageFont.truetype(F_GOTHIC, 22)
+    # タイトルは区切り線と同じ幅に収める。収まらなければ文字を小さくし（30→22px）、
+    # それでも収まらないときだけ末尾を「…」で省略する
+    title_x = pad - 14  # 『 の左の余白ぶん左に出して、本文と頭をそろえる
+    max_w = W - pad - title_x
+    title = f"『{w['タイトル']}』"
+    for size in range(30, 21, -1):
+        tf = ImageFont.truetype(F_MINCHO_B, size)
+        if tf.getlength(title) <= max_w:
+            break
     core = w["タイトル"]
-    title = f"『{core}』"
-    while tf.getlength(title) > W - pad * 2 - 280 and len(core) > 1:
+    while tf.getlength(title) > max_w and len(core) > 1:
         core = core[:-1]
         title = f"『{core}…』"
-    d.text((pad - 14, 528), title, font=tf, fill=INK)
+    d.text((title_x, 528 + (30 - size) // 2), title, font=tf, fill=INK)
     d.text((pad, 576), w["作者"], font=af, fill=SUB)
     st = SITE_TITLE
     d.text((W - pad - af.getlength(st), 576), st, font=af, fill=SUB)
@@ -291,8 +321,6 @@ def build_default_image():
     big = ImageFont.truetype(F_MINCHO_B, 64)
     small = ImageFont.truetype(F_GOTHIC, 28)
     d.text((96, 220), SITE_TITLE, font=big, fill=INK)
-    d.text((96, 330), "仮のサムネイル画像です（og/default.png を差し替えてください）", font=small, fill=SUB)
-    d.text((96, 380), "推奨サイズ 1200 × 630 px", font=small, fill=SUB)
     im.save(path, optimize=True)
 
 

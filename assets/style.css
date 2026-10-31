@@ -173,6 +173,18 @@ ruby rt { font-size: .5em; }
 
 .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
 
+
+/* 作者ごとの画像（tools/config.json の author_images） */
+.work-image { margin: 0 0 1.5rem; }
+.work-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
 @media (max-width: 30rem) {
   .pass-head, .pass-body { padding-left: 1.25rem; padding-right: 1.25rem; }
   .actions a { flex: 1 1 100%; text-align: center; }
