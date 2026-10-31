@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18人の空港　おすすめ診断</title>
+<meta name="description" content="5つの質問に答えると、『18人の空港』収録作からあなたにおすすめの一篇をご案内します。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="18人の空港　おすすめ診断">
+<meta property="og:title" content="18人の空港　おすすめ診断">
+<meta property="og:description" content="5つの質問に答えると、『18人の空港』収録作からあなたにおすすめの一篇をご案内します。">
+<meta property="og:url" content="https://example.github.io/test/">
+<meta property="og:image" content="https://example.github.io/test/og/default.png?v=740a0907">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Zen+Old+Mincho:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="sign">
+  <svg class="sign-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h15M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+  <span class="sign-title">18人の空港　おすすめ診断</span>
+</header>
+<main class="wrap" id="app">
+  <section class="intro" id="intro">
+    <p class="lead">5つの質問に答えると、『18人の空港』の18篇から、あなたにおすすめの一篇をご案内します。</p>
+    <button type="button" class="primary" id="start">診断をはじめる</button>
+  </section>
+  <section class="quiz" id="quiz" hidden>
+    <div class="progress" aria-live="polite"><span id="count"></span><ol class="ticks" id="ticks"></ol></div>
+    <h1 class="question" id="question" tabindex="-1"></h1>
+    <ul class="options" id="options"></ul>
+    <button type="button" class="back" id="back">ひとつ前の質問に戻る</button>
+  </section>
+  <noscript><p class="lead">この診断を使うには JavaScript を有効にしてください。</p></noscript>
+</main>
+<script src="assets/quiz.js"></script>
+</body>
+</html>

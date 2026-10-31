@@ -1,0 +1,8 @@
+{
+  "site_url": "https://USERNAME.github.io/REPOSITORY",
+  "site_title": "18人の空港　おすすめ診断",
+  "description": "5つの質問に答えると、『18人の空港』収録作からあなたにおすすめの一篇をご案内します。",
+  "lead": "5つの質問に答えると、『18人の空港』の18篇から、あなたにおすすめの一篇をご案内します。",
+  "share_text": "わたしへのおすすめは『{title}』（{author}）でした",
+  "hashtags": ["18人の空港"]
+}
